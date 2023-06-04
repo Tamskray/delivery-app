@@ -1,0 +1,36 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #696868;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.navbar ul {
+  padding-left: 1rem;
+}
+
+.navbar li {
+  list-style: none;
+  cursor: pointer;
+}
+
+.navbar li:hover {
+  opacity: 70%;
+}
+
+.navbar li a.active {
+  border-bottom: 2px solid #fff;
+}
+
+.navbar__menu {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem;
+}
