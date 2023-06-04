@@ -135,3 +135,16 @@
 .product__title .product__price:hover {
   opacity: 70%;
 }
+
+.inactive {
+  transition: 0.3s ease-in;
+  filter: grayscale(1);
+}
+
+.inactive .shop__image {
+  cursor: not-allowed;
+}
+
+.inactive .shop__title {
+  cursor: not-allowed;
+}

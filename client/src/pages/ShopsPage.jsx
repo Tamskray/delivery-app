@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { useCartStore } from "../store/Store";
+import { useActiveShop, useCartStore } from "../store/Store";
 
 import "../styles/ShopsPage.css";
 import Loading from "../components/Loading";
+import { useNavigate } from "react-router-dom";
 
 const ShopsPage = () => {
   const [shops, setShops] = useState();
@@ -13,7 +14,13 @@ const ShopsPage = () => {
   const [products, setProducts] = useState();
   const [isLoadingProducts, setIsLoadingProducts] = useState(false);
 
+  const currentActiveShop = useActiveShop((state) => state.activeShop);
+  const changeActiveShop = useActiveShop((state) => state.setActiveShop);
+
   const addToCartProduct = useCartStore((state) => state.addToCart);
+  const productsInCart = useCartStore((state) => state.cartProducts);
+
+  const navigate = useNavigate();
 
   const fetchShops = async () => {
     try {
@@ -47,10 +54,22 @@ const ShopsPage = () => {
 
   useEffect(() => {
     fetchShops();
+
+    const storedData = JSON.parse(localStorage.getItem("cartItems"));
+    storedData?.productsInCart.map((storedItem) => {
+      const { id, title, price, quantity, image, shop } = storedItem;
+      // addToCartProduct(id, title, price, image, quantity, shop);
+      changeActiveShop(shop);
+    });
+
+    if (storedData?.productsInCart.length && !productsInCart.length) {
+      navigate("/order");
+    }
   }, []);
 
   const changeCurrentShopHandler = (shop) => {
-    setCurrentShop(shop);
+    productsInCart && currentActiveShop === shop && setCurrentShop(shop);
+    !productsInCart.length && setCurrentShop(shop);
   };
 
   useEffect(() => {
@@ -61,13 +80,41 @@ const ShopsPage = () => {
     productId,
     productTitle,
     productPrice,
-    productImage
+    productImage,
+    shopId
   ) => {
-    addToCartProduct(productId, productTitle, productPrice, productImage);
+    addToCartProduct(
+      productId,
+      productTitle,
+      productPrice,
+      productImage,
+      1,
+      shopId
+    );
+    changeActiveShop(shopId);
+
+    console.log("click");
   };
+
+  useEffect(() => {
+    productsInCart?.length &&
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify({
+          productsInCart,
+        })
+      );
+    console.log("set in storage");
+  }, [productsInCart]);
 
   return (
     <>
+      {/* {currentActiveShop}
+      {productsInCart?.length > 0 ? (
+        <h3>Items in cart</h3>
+      ) : (
+        <h3>No items in cart</h3>
+      )} */}
       {error && <h1>{error}</h1>}
       {isLoading ? (
         <div className="center">
@@ -79,7 +126,15 @@ const ShopsPage = () => {
             {!isLoading &&
               shops &&
               shops.map((shop) => (
-                <div key={shop._id} className="shop__item">
+                <div
+                  key={shop._id}
+                  className={`shop__item ${
+                    productsInCart?.length &&
+                    currentActiveShop &&
+                    currentActiveShop !== shop._id &&
+                    "inactive"
+                  }`}
+                >
                   <div
                     className="shop__image"
                     onClick={() => changeCurrentShopHandler(shop._id)}
@@ -127,7 +182,8 @@ const ShopsPage = () => {
                             product._id,
                             product.title,
                             product.price,
-                            product.image
+                            product.image,
+                            product.shop
                           )
                         }
                       >
