@@ -22,14 +22,33 @@ class ProductsController {
     }
   }
 
-  async getProductsByShopId(req, res) {
+  async getProductsByShopUrl(req, res) {
     try {
-      const shopId = req.params.shopId;
-      const products = await Product.find({ shop: shopId });
+      const shopUrl = req.params.shopUrl;
+      const productType = req.query.type;
 
+      let query = { shop: shopUrl };
+
+      if (productType) {
+        query = { ...query, type: productType };
+      }
+
+      const products = await Product.find(query);
+      // const products = await Product.find({ shop: shopUrl });
       res.status(200).json(products);
     } catch (err) {
       res.status(404).json({ message: err.message });
+    }
+  }
+
+  async getProductTypesByShopUrl(req, res) {
+    try {
+      const shopUrl = req.params.shopUrl;
+      const productTypes = await Product.distinct("type", { shop: shopUrl });
+
+      res.status(200).json(productTypes);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
     }
   }
 

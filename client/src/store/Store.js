@@ -2,7 +2,14 @@ import { create } from "zustand";
 
 export const useCartStore = create((set) => ({
   cartProducts: [],
-  addToCart: (productId, productTitle, productPrice, productImage) =>
+  addToCart: (
+    productId,
+    productTitle,
+    productPrice,
+    productImage,
+    productQuantity,
+    productShop
+  ) =>
     set((state) => {
       const existingProduct = state.cartProducts.find(
         (product) => product.id === productId
@@ -12,7 +19,10 @@ export const useCartStore = create((set) => ({
         return {
           cartProducts: state.cartProducts.map((product) => {
             if (product.id === productId) {
-              return { ...product, quantity: product.quantity + 1 };
+              return {
+                ...product,
+                quantity: product.quantity + productQuantity,
+              };
             }
             return product;
           }),
@@ -26,7 +36,8 @@ export const useCartStore = create((set) => ({
               title: productTitle,
               price: productPrice,
               image: productImage,
-              quantity: 1,
+              quantity: productQuantity || 1,
+              shop: productShop || null,
             },
           ],
         };
@@ -55,6 +66,10 @@ export const useCartStore = create((set) => ({
         })
         .filter(Boolean),
     })),
-  // addToCart: (value) =>
-  //   set((state) => ({ cartProducts: [...state.cartProducts, value] })),
+  clearCart: () => set(() => ({ cartProducts: [] })),
+}));
+
+export const useActiveShop = create((set) => ({
+  activeShop: null,
+  setActiveShop: (shopId) => set((state) => ({ activeShop: shopId })),
 }));

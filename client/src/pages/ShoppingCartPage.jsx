@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { Formik } from "formik";
-import { useCartStore } from "../store/Store";
+import { useCartStore, useActiveShop } from "../store/Store";
 
 import "../styles/ShoppingCartPage.css";
 import CustomerInputs from "../components/CustomerInputs";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const customerInputs = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -22,7 +23,13 @@ const initialCustomerValues = {
 };
 
 const ShoppingCartPage = () => {
+  const navigate = useNavigate();
+
   const productsInCart = useCartStore((state) => state.cartProducts);
+  const addToCartProduct = useCartStore((state) => state.addToCart);
+
+  // const currentActiveShop = useActiveShop((state) => state.activeShop);
+  const changeActiveShop = useActiveShop((state) => state.setActiveShop);
 
   const subtractProduct = useCartStore(
     (state) => state.subtractFromProductCounter
@@ -76,21 +83,46 @@ const ShoppingCartPage = () => {
   };
 
   const submitForm = (values) => {
-    // productsInCart.length > 0 &&
-    //   console.log({
-    //     name: values.name,
-    //     email: values.email,
-    //     phone: values.phone,
-    //     address: values.address,
-    //     items: orderItems,
-    //     totalPrice: totalPrice,
-    //   });
-    productsInCart.length > 0 && takeOrder(values);
+    if (productsInCart.length > 0) {
+      takeOrder(values);
+      localStorage.removeItem("cartItems");
+      navigate("/");
+    }
   };
+
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("cartItems"));
+
+    !productsInCart.length &&
+      storedData &&
+      storedData.productsInCart.map((storedItem) => {
+        const { id, title, price, quantity, image, shop } = storedItem;
+        console.log(quantity);
+        addToCartProduct(id, title, price, image, quantity, shop);
+        changeActiveShop(shop);
+      });
+
+    console.log("set cart items");
+  }, []);
+
+  useEffect(() => {
+    productsInCart.length &&
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify({
+          productsInCart,
+        })
+      );
+    console.log("set in storage");
+
+    !productsInCart.length &&
+      // currentActiveShop &&
+      localStorage.removeItem("cartItems");
+  }, [addProductHandler, subtractProductHandler]);
 
   return (
     <>
-      <div className="shopping__cart__container">
+      <div className="shopping__cart__container" style={{ marginTop: 120 }}>
         <Formik
           validationSchema={customerInputs}
           initialValues={initialCustomerValues}

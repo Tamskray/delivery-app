@@ -4,6 +4,9 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 import ShopsRouter from "./routes/ShopsRouter.js";
 import ProductsRouter from "./routes/ProductsRouter.js";
 import OrdersRouter from "./routes/OrdersRouter.js";
@@ -34,7 +37,7 @@ mongoose
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.yxlqhm6.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
-    app.listen(process.env.PORT);
+    app.listen(process.env.PORT || 5000);
   })
   .catch((err) => {
     console.log(err);
