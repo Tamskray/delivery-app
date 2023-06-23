@@ -136,7 +136,7 @@
   opacity: 70%;
 }
 
-.inactive {
+/* .inactive {
   transition: 0.3s ease-in;
   filter: grayscale(1);
 }
@@ -147,4 +147,4 @@
 
 .inactive .shop__title {
   cursor: not-allowed;
-}
+} */

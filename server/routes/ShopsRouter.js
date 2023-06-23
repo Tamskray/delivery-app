@@ -6,7 +6,10 @@ const router = new Router();
 
 router.get("/", ShopsController.getShops);
 
-router.get("/:shopId", ShopsController.getShopById);
+router.get("/types", ShopsController.getShopsTypes);
+
+// router.get("/:shopId", ShopsController.getShopById);
+router.get("/:shopUrl", ShopsController.getShopByUrl);
 
 router.post(
   "/",

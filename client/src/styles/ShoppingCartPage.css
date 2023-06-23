@@ -36,9 +36,9 @@ input {
 
 .order__button {
   position: absolute;
-  bottom: -5rem;
-  right: 0;
-  margin: 3rem;
+  bottom: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .cart__wrapper {

@@ -6,6 +6,7 @@ import { useCartStore, useActiveShop } from "../store/Store";
 import "../styles/ShoppingCartPage.css";
 import CustomerInputs from "../components/CustomerInputs";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const customerInputs = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -22,6 +23,8 @@ const initialCustomerValues = {
 };
 
 const ShoppingCartPage = () => {
+  const navigate = useNavigate();
+
   const productsInCart = useCartStore((state) => state.cartProducts);
   const addToCartProduct = useCartStore((state) => state.addToCart);
 
@@ -82,7 +85,8 @@ const ShoppingCartPage = () => {
   const submitForm = (values) => {
     if (productsInCart.length > 0) {
       takeOrder(values);
-      // localStorage.removeItem("cartItems");
+      localStorage.removeItem("cartItems");
+      navigate("/");
     }
   };
 
@@ -118,7 +122,7 @@ const ShoppingCartPage = () => {
 
   return (
     <>
-      <div className="shopping__cart__container">
+      <div className="shopping__cart__container" style={{ marginTop: 120 }}>
         <Formik
           validationSchema={customerInputs}
           initialValues={initialCustomerValues}
