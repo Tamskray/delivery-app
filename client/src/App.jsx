@@ -3,14 +3,10 @@ import {
   createBrowserRouter,
   Navigate,
   RouterProvider,
-  redirect,
-  useNavigate,
 } from "react-router-dom";
-
+import { useAuthStore } from "./store/Store";
 import Layout from "./pages/Layout";
 import ErrorPage from "./pages/ErrorPage";
-import ShopsPage from "./pages/ShopsPage";
-import ShoppingCartPage from "./pages/ShoppingCartPage";
 
 import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
@@ -21,10 +17,14 @@ import Auth from "./pages/Auth";
 import Shops from "./pages/Shops";
 import Products from "./pages/Products";
 import Order from "./pages/Order";
+import AdminPanel from "./pages/AdminPanel";
 
 import.meta.env.MODE;
 
 function App() {
+  const token = useAuthStore((state) => state.token);
+  console.log("Token " + !!token);
+
   const router = createBrowserRouter([
     {
       element: <Layout />,
@@ -51,12 +51,8 @@ function App() {
           element: <Order />,
         },
         {
-          path: "/1shops1",
-          element: <ShopsPage />,
-        },
-        {
-          path: "/order1",
-          element: <ShoppingCartPage />,
+          path: "/admin",
+          element: !!token ? <AdminPanel /> : <Navigate to="/" />,
         },
       ],
     },

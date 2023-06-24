@@ -73,3 +73,11 @@ export const useActiveShop = create((set) => ({
   activeShop: null,
   setActiveShop: (shopId) => set((state) => ({ activeShop: shopId })),
 }));
+
+export const useAuthStore = create((set) => ({
+  token: null,
+  setToken: (token) => set({ token }),
+  role: null,
+  setRole: (role) => set({ role }),
+  logout: () => set(() => ({ token: null, role: null })),
+}));

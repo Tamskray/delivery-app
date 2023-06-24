@@ -61,7 +61,7 @@ class ProductsController {
           .json({ message: "Error with creating product", errors });
       }
 
-      const { title, type, price, shop } = req.body;
+      const { title, description, type, price, shop } = req.body;
 
       const existingProduct = await Product.findOne({ title: title });
 
@@ -69,7 +69,8 @@ class ProductsController {
         return res.status(422).json({ message: "This product exists already" });
       }
 
-      const existingShop = await Shop.findById(shop);
+      console.log(shop);
+      const existingShop = await Shop.findOne({ url: shop });
 
       if (!existingShop) {
         return res
@@ -80,16 +81,24 @@ class ProductsController {
       // hardcode image only for fast create product for examples
       const newProduct = new Product({
         title,
+        description,
         type,
         price,
-        image: `assets\\images\\${title}.jpg`,
+        image: null,
         shop,
+        // image: `assets\\images\\${title}.jpg`,
       });
 
       await newProduct.save();
-      await Shop.findByIdAndUpdate(shop, {
-        $push: { products: newProduct.id },
-      });
+      await Shop.findOneAndUpdate(
+        { url: shop },
+        {
+          $push: { products: newProduct.id },
+        }
+      );
+      // await Shop.findByIdAndUpdate(shop, {
+      //   $push: { products: newProduct.id },
+      // });
 
       res.status(201).json(newProduct);
     } catch (err) {

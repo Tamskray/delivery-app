@@ -90,7 +90,7 @@ const Order = () => {
   // }, []);
 
   useEffect(() => {
-    productsInCart.length && console.log("UPDATE IN ORDER");
+    // productsInCart.length && console.log("UPDATE IN ORDER");
 
     productsInCart.length &&
       localStorage.setItem(

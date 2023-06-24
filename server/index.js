@@ -10,6 +10,7 @@ dotenv.config();
 import ShopsRouter from "./routes/ShopsRouter.js";
 import ProductsRouter from "./routes/ProductsRouter.js";
 import OrdersRouter from "./routes/OrdersRouter.js";
+import UsersRouter from "./routes/UserRoutes.js";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use((error, req, res, next) => {
 app.use("/api/shops", ShopsRouter);
 app.use("/api/products", ProductsRouter);
 app.use("/api/orders", OrdersRouter);
+app.use("/api/users", UsersRouter);
 
 app.use((req, res, next) => {
   res.status(404).json({ message: "Could not find this route" });

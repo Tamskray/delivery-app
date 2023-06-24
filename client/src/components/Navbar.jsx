@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { useActiveShop, useCartStore, useAuthStore } from "../store/Store";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -11,7 +12,8 @@ import IconButton from "@mui/material/IconButton";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
-import { useActiveShop, useCartStore } from "../store/Store";
+import LogoutIcon from "@mui/icons-material/Logout";
+import TableRowsIcon from "@mui/icons-material/TableRows";
 import { styled } from "@mui/material/styles";
 
 import "./Navbar.css";
@@ -39,6 +41,8 @@ function HideOnScroll(props) {
 
 const Navbar = (props) => {
   const navigate = useNavigate();
+  const token = useAuthStore((state) => state.token);
+  const logoutHandler = useAuthStore((state) => state.logout);
 
   const productsInCart = useCartStore((state) => state.cartProducts);
   const addToCartProduct = useCartStore((state) => state.addToCart);
@@ -90,23 +94,50 @@ const Navbar = (props) => {
                 </div>
               </NavLink>
             </Typography>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={profileClickHandler}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <div onClick={() => navigate("/order1")}>Кошик old</div>
 
             <IconButton aria-label="cart" onClick={() => navigate("/order")}>
               <StyledBadge badgeContent={totalQuantity} color="secondary">
                 <ShoppingCartIcon style={{ color: "#fff" }} />
               </StyledBadge>
             </IconButton>
+
+            {!token && (
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={profileClickHandler}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            )}
+
+            {!!token && (
+              <>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={() => navigate("/admin")}
+                  color="inherit"
+                >
+                  <TableRowsIcon />
+                </IconButton>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={logoutHandler}
+                  color="inherit"
+                >
+                  <LogoutIcon />
+                </IconButton>
+              </>
+            )}
           </Toolbar>
         </AppBar>
       </HideOnScroll>

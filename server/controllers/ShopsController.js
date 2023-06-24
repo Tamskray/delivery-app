@@ -69,9 +69,9 @@ class ShopsController {
 
       const existingShop = await Shop.findOne({ title: title });
 
-      if (existingShop) {
-        return res.status(422).json({ message: "This shop exists already" });
-      }
+      // if (existingShop) {
+      //   return res.status(422).json({ message: "This shop exists already" });
+      // }
 
       const newShop = new Shop({
         title,

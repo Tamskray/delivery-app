@@ -12,6 +12,7 @@ const ProductItem = ({ product }) => {
   const [productsQuantity, seProductsQuantity] = useState(1);
 
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
