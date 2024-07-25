@@ -1,0 +1,64 @@
+.home-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-page-info {
+  /* background-image: url("../images/home-back1.svg"); */
+  background-image: url("../images/home-burger5.jpg");
+  background-repeat: no-repeat;
+  width: 100%;
+  background-size: cover;
+  /* background-size: 100%; */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #f3e4e4;
+  background-color: #0a020c;
+  /* justify-content: center; */
+}
+
+.home-page-guide {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* height: 30rem; */
+  height: 100%;
+  background-color: #e1d6f5;
+  width: 100%;
+  justify-content: center;
+  padding: 4rem;
+}
+
+.home-page-guide-info {
+  margin-right: 1rem;
+  position: relative;
+  bottom: 1rem;
+}
+
+.home-page-guide-image {
+  background-image: url("../images/undraw_add_to_cart_re_wrdo.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 400px;
+  margin-left: 2rem;
+}
+
+.home-page-btn {
+  width: 1400px;
+  /* height: 60px, 
+  backgroundColor: red, 
+  color: white,  */
+}
+
+.home-page-description {
+  text-align: center;
+}
+
+.home-page-about {
+  text-align: center;
+  margin: 0 5rem 5rem 5rem;
+}

@@ -1,0 +1,71 @@
+.admin-panel-container {
+  margin-top: 3rem;
+  padding: 3rem;
+}
+
+.admin-panel-shop-item {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 10px;
+  background-color: #e1d6f5;
+  margin-top: 1rem;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.admin-panel-shop-item-title {
+  width: 15rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.admin-panel-product-item-title {
+  width: 15rem;
+  font-weight: 500;
+}
+
+.admin-panel-shop-item-title:hover {
+  opacity: 80%;
+}
+
+.back-to-shops {
+  cursor: pointer;
+}
+
+.back-to-shops:hover {
+  opacity: 80%;
+}
+
+.admin-panel-order-name {
+  width: 8rem;
+}
+
+.admin-panel-order-email {
+  width: 12rem;
+}
+
+.admin-panel-order-phone {
+  width: 6rem;
+}
+
+.admin-panel-order-address {
+  width: 10rem;
+}
+
+.admin-panel-order-status {
+  width: 7rem;
+}
+
+.admin-panel-order-order {
+  cursor: pointer;
+  color: #602db9;
+}
+
+.admin-panel-order-order:hover {
+  color: #020104;
+}
+
+.dark {
+  background-color: #e0d9ec;
+}

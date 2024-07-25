@@ -1,0 +1,45 @@
+.auth-container {
+  margin-top: 15rem;
+  /* padding: 10px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.login-form {
+  /* flex-basis: 50%; */
+  width: 40rem;
+  padding: 1rem;
+}
+
+.login-btn {
+  margin-top: 1rem;
+}
+
+.auth-login-image {
+  /* flex-basis: 50%; */
+  margin-top: 5rem;
+  background-image: url(../images/login.svg);
+  width: 450px;
+  height: 250px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.auth-login-error-image {
+  margin-top: 5rem;
+  background-image: url(../images/warning.svg);
+  width: 450px;
+  height: 250px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.auth-error {
+  margin-top: 2rem;
+  background-color: rgba(177, 5, 5, 0.507);
+  border-radius: 10px;
+  padding: 15px;
+}

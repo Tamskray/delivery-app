@@ -1,0 +1,30 @@
+.orders-wrapper {
+  padding: 10px 5rem 10px 5rem;
+  margin-top: 5rem;
+  /* display: flex;
+  flex: 1; */
+}
+
+.current-orders {
+  margin: 5rem;
+  padding: 2rem;
+  border-radius: 15px;
+  background-color: #e1d6f5;
+}
+
+.current-order-total-price {
+  margin-left: 1rem;
+  font-weight: 600;
+  font-size: 30px;
+}
+
+@media (max-width: 440px) {
+  .orders-wrapper {
+    padding: 10px 1rem 10px 1rem;
+  }
+
+  .current-orders {
+    margin: 1rem;
+    /* padding: 1rem; */
+  }
+}
