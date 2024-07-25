@@ -15,6 +15,8 @@ export const authMiddleware = (req, res, next) => {
     next();
   } catch (err) {
     // console.log(err);
-    return res.status(403).json({ message: "User is not authorized" });
+    return res
+      .status(403)
+      .json({ message: "User is not authorized", error: err });
   }
 };

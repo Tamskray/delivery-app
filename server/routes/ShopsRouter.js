@@ -6,12 +6,10 @@ import { authMiddleware } from "../middleware/auth-middleware.js";
 
 const router = new Router();
 
-// отримання данних про всі заклади
 router.get("/", ShopsController.getShops);
 
 router.get("/types", ShopsController.getShopsTypes);
 
-// router.get("/:shopId", ShopsController.getShopById);
 router.get("/:shopUrl", ShopsController.getShopByUrl);
 
 router.post(
@@ -30,7 +28,7 @@ router.post(
       .notEmpty()
       .isNumeric(),
   ],
-  ShopsController.createShop
+  ShopsController.createShop,
 );
 
 router.patch(
@@ -49,7 +47,7 @@ router.patch(
       .notEmpty()
       .isNumeric(),
   ],
-  ShopsController.updateShop
+  ShopsController.updateShop,
 );
 
 router.delete("/:shopId", authMiddleware, ShopsController.deleteShop);

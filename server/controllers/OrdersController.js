@@ -1,5 +1,4 @@
 import Order from "../models/Order.js";
-import Shop from "../models/Shop.js";
 import { validationResult } from "express-validator";
 
 class OrdersController {
@@ -46,7 +45,7 @@ class OrdersController {
           .json({ message: "Error with creating order", errors });
       }
 
-      const { name, email, phone, address, items, totalPrice, shop } = req.body;
+      const { name, email, phone, address, items, totalPrice } = req.body;
 
       // const existingShop = await Shop.findById(shop);
 

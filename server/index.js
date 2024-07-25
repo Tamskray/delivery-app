@@ -12,14 +12,12 @@ import ProductsRouter from "./routes/ProductsRouter.js";
 import OrdersRouter from "./routes/OrdersRouter.js";
 import UsersRouter from "./routes/UserRoutes.js";
 
-// створення сервера
 const app = express();
 
 app.use(bodyParser.json());
 
 app.use(cors());
 
-// використання статичних файлів (зображень)
 app.use("/assets/images", express.static(path.join("assets", "images")));
 
 app.use((error, req, res, next) => {
@@ -27,7 +25,6 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
-// використання роутів
 app.use("/api/shops", ShopsRouter);
 app.use("/api/products", ProductsRouter);
 app.use("/api/orders", OrdersRouter);
@@ -37,10 +34,9 @@ app.use((req, res, next) => {
   res.status(404).json({ message: "Could not find this route" });
 });
 
-// підключення до БД, розгортання сервера
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.yxlqhm6.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.yxlqhm6.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
   )
   .then(() => {
     app.listen(process.env.PORT || 5000);

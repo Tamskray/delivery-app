@@ -19,12 +19,12 @@ router.post(
     check("title", "Product name at least 4 characters").isLength({ min: 4 }),
     check(
       "description",
-      "The description of the product is not entered"
+      "The description of the product is not entered",
     ).notEmpty(),
     check("type", "The name of the product type is not entered").notEmpty(),
     check("price", "Price is not specified").isNumeric().notEmpty(),
   ],
-  ProductsController.createProduct
+  ProductsController.createProduct,
 );
 
 router.patch(
@@ -34,12 +34,12 @@ router.patch(
     check("title", "Product name at least 4 characters").isLength({ min: 4 }),
     check(
       "description",
-      "The description of the product is not entered"
+      "The description of the product is not entered",
     ).notEmpty(),
     check("type", "The name of the product type is not entered").notEmpty(),
     check("price", "Price is not specified").isNumeric().notEmpty(),
   ],
-  ProductsController.updateProduct
+  ProductsController.updateProduct,
 );
 
 router.delete("/:productId", ProductsController.deleteProduct);

@@ -27,7 +27,7 @@ router.post(
       .notEmpty(),
     check("totalPrice", "Total price is not specified").isNumeric().notEmpty(),
   ],
-  OrdersController.createOrder
+  OrdersController.createOrder,
 );
 
 router.put("/:orderId", OrdersController.updateOrderStatus);

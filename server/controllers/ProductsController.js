@@ -99,7 +99,7 @@ class ProductsController {
         { url: shop },
         {
           $push: { products: newProduct.id },
-        }
+        },
       );
 
       res.status(201).json(newProduct);
@@ -170,7 +170,7 @@ class ProductsController {
         { url: product.shop },
         {
           $pull: { products: productId },
-        }
+        },
       );
 
       res.status(200).json({ message: "Product deleted successfully" });
