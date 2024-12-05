@@ -1,0 +1,38 @@
+.admin-panel-container {
+  margin-top: 3rem;
+  padding: 3rem;
+}
+
+.admin-panel-shop-item {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 10px;
+  background-color: #e1d6f5;
+  margin-top: 1rem;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.admin-panel-shop-item-title {
+  width: 15rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.admin-panel-product-item-title {
+  width: 15rem;
+  font-weight: 500;
+}
+
+.admin-panel-shop-item-title:hover {
+  opacity: 80%;
+}
+
+.back-to-shops {
+  cursor: pointer;
+}
+
+.back-to-shops:hover {
+  opacity: 80%;
+}

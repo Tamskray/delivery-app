@@ -4,9 +4,13 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
 
+import dotenv from "dotenv";
+dotenv.config();
+
 import ShopsRouter from "./routes/ShopsRouter.js";
 import ProductsRouter from "./routes/ProductsRouter.js";
 import OrdersRouter from "./routes/OrdersRouter.js";
+import UsersRouter from "./routes/UserRoutes.js";
 
 const app = express();
 
@@ -24,6 +28,7 @@ app.use((error, req, res, next) => {
 app.use("/api/shops", ShopsRouter);
 app.use("/api/products", ProductsRouter);
 app.use("/api/orders", OrdersRouter);
+app.use("/api/users", UsersRouter);
 
 app.use((req, res, next) => {
   res.status(404).json({ message: "Could not find this route" });
@@ -34,7 +39,7 @@ mongoose
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.yxlqhm6.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
-    app.listen(process.env.PORT);
+    app.listen(process.env.PORT || 5000);
   })
   .catch((err) => {
     console.log(err);

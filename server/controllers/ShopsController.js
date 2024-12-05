@@ -5,7 +5,15 @@ import { validationResult } from "express-validator";
 class ShopsController {
   async getShops(req, res) {
     try {
-      const shops = await Shop.find();
+      const shopType = req.query.type;
+
+      let shops;
+      if (shopType) {
+        shops = await Shop.find({ type: shopType });
+      } else {
+        shops = await Shop.find();
+      }
+
       res.status(200).json(shops);
     } catch (err) {
       res.status(404).json({ message: err.message });
@@ -22,6 +30,32 @@ class ShopsController {
     }
   }
 
+  async getShopByUrl(req, res) {
+    try {
+      const shopUrl = req.params.shopUrl;
+      console.log(shopUrl);
+      const shop = await Shop.findOne({ url: shopUrl });
+
+      if (!shop) {
+        return res.status(404).json({ message: "Магазин не знайдено!" });
+      }
+
+      res.status(200).json(shop);
+    } catch (err) {
+      res.status(404).json({ message: err.message });
+    }
+  }
+
+  async getShopsTypes(req, res) {
+    try {
+      const shopTypes = await Shop.distinct("type");
+
+      res.status(200).json(shopTypes);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  }
+
   async createShop(req, res) {
     try {
       const errors = validationResult(req);
@@ -35,9 +69,9 @@ class ShopsController {
 
       const existingShop = await Shop.findOne({ title: title });
 
-      if (existingShop) {
-        return res.status(422).json({ message: "This shop exists already" });
-      }
+      // if (existingShop) {
+      //   return res.status(422).json({ message: "This shop exists already" });
+      // }
 
       const newShop = new Shop({
         title,

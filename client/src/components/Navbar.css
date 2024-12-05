@@ -1,8 +1,8 @@
-.navbar {
+/* .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #696868;
+  background-color: #a1a1a1;
   color: #fff;
   box-sizing: border-box;
 }
@@ -33,4 +33,13 @@
   display: flex;
   gap: 1rem;
   margin: 1rem;
+} */
+
+a {
+  text-decoration: none;
+  color: #f3effb;
+}
+
+.navbar-title:hover {
+  opacity: 80%;
 }
